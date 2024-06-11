@@ -169,12 +169,13 @@ def deal_hand(n):
 #
 def update_hand(hand, word):
     new_hand = hand.copy()
+    word = word.lower()
     for letter in word:
         if letter in new_hand:
             new_hand[letter] -= 1
             if new_hand[letter] == 0:
                 del new_hand[letter]
-    new_hand = update_hand(hand, word)
+    return new_hand
 
 
     """
@@ -195,12 +196,24 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+      # TO DO... Remove this line when you implement this function
 
 #
 # Problem #3: Test word validity
 #
 def is_valid_word(word, hand, word_list):
+    word = word.lower()
+    if word not in word_list:
+        return False
+
+    hand_copy = hand.copy()
+    for letter in word:
+        if letter in hand_copy and hand_copy[letter] > 0:
+            hand_copy[letter] -= 1
+        else:
+            return False
+    # If all checks pass, return True
+    return True
     """
     Returns True if word is in the word_list and is entirely
     composed of letters in the hand. Otherwise, returns False.
